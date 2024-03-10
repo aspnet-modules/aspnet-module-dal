@@ -1,0 +1,9 @@
+{
+  "src": "./src",
+  "packages": {
+    "AspNet.Module.Dal.EfCore.Abstractions": true,
+    "AspNet.Module.Dal.EfCore": true,
+    "AspNet.Module.Dal.EfCore.Audit": true,
+    "AspNet.Module.Dal.EfCore.Audit.Elk": true
+  }
+}

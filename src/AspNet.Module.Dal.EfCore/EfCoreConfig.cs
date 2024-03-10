@@ -1,0 +1,43 @@
+using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
+
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
+
+namespace AspNet.Module.Dal.EfCore;
+
+/// <summary>
+///     Настройки EfCore
+/// </summary>
+public class EfCoreConfig
+{
+    /// <summary>
+    ///     Время в БД
+    /// </summary>
+    public Func<DateTime>? Clock { get; init; }
+
+    /// <summary>
+    ///     Конфигурация
+    /// </summary>
+    public Action<NpgsqlDbContextOptionsBuilder>? Configure { get; init; }
+
+    /// <summary>
+    ///     Пул контектов
+    /// </summary>
+    public PoolingOptions? Pooling { get; init; }
+
+    /// <summary>
+    ///     Фабрика DbContext
+    /// </summary>
+    public bool? RegisterAsFactory { get; init; }
+
+    /// <summary>
+    ///     Настройка пула
+    /// </summary>
+    public class PoolingOptions
+    {
+        /// <summary>
+        ///     Размер пула
+        /// </summary>
+        public int Size { get; init; } = 1024;
+    }
+}

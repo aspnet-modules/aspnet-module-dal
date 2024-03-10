@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E612D049-3CF3-4CF8-86DF-937BA1584E57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Module.Dal.EfCore", "src\AspNet.Module.Dal.EfCore\AspNet.Module.Dal.EfCore.csproj", "{FD895101-3456-4AA6-A477-7834F836D39E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Module.Dal.EfCore.Abstractions", "src\AspNet.Module.Dal.EfCore.Abstractions\AspNet.Module.Dal.EfCore.Abstractions.csproj", "{066500A3-F3FF-41C0-AEC5-535817D5B5B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{89970D0C-839E-4A98-83E8-2108818411B1}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+		nuget.json = nuget.json
+		dotnet.yml = .github/workflows/dotnet.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Module.Dal.EfCore.Audit", "src\AspNet.Module.Dal.EfCore.Audit\AspNet.Module.Dal.EfCore.Audit.csproj", "{93593967-4727-4E7D-8ACD-7E2DF2164559}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNet.Module.Dal.EfCore.Audit.Elk", "src\AspNet.Module.Dal.EfCore.Audit.Elk\AspNet.Module.Dal.EfCore.Audit.Elk.csproj", "{3EF4D2AB-D576-49CE-8616-C4C7CD49771C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD895101-3456-4AA6-A477-7834F836D39E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD895101-3456-4AA6-A477-7834F836D39E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD895101-3456-4AA6-A477-7834F836D39E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD895101-3456-4AA6-A477-7834F836D39E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{066500A3-F3FF-41C0-AEC5-535817D5B5B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{066500A3-F3FF-41C0-AEC5-535817D5B5B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{066500A3-F3FF-41C0-AEC5-535817D5B5B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{066500A3-F3FF-41C0-AEC5-535817D5B5B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93593967-4727-4E7D-8ACD-7E2DF2164559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93593967-4727-4E7D-8ACD-7E2DF2164559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93593967-4727-4E7D-8ACD-7E2DF2164559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93593967-4727-4E7D-8ACD-7E2DF2164559}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EF4D2AB-D576-49CE-8616-C4C7CD49771C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EF4D2AB-D576-49CE-8616-C4C7CD49771C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EF4D2AB-D576-49CE-8616-C4C7CD49771C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EF4D2AB-D576-49CE-8616-C4C7CD49771C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FD895101-3456-4AA6-A477-7834F836D39E} = {E612D049-3CF3-4CF8-86DF-937BA1584E57}
+		{066500A3-F3FF-41C0-AEC5-535817D5B5B0} = {E612D049-3CF3-4CF8-86DF-937BA1584E57}
+		{93593967-4727-4E7D-8ACD-7E2DF2164559} = {E612D049-3CF3-4CF8-86DF-937BA1584E57}
+		{3EF4D2AB-D576-49CE-8616-C4C7CD49771C} = {E612D049-3CF3-4CF8-86DF-937BA1584E57}
+	EndGlobalSection
+EndGlobal
