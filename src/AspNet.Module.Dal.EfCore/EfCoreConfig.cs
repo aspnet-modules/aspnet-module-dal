@@ -1,3 +1,4 @@
+using Npgsql;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
@@ -18,7 +19,12 @@ public class EfCoreConfig
     /// <summary>
     ///     Конфигурация
     /// </summary>
-    public Action<NpgsqlDbContextOptionsBuilder>? Configure { get; init; }
+    public Action<NpgsqlDbContextOptionsBuilder>? Npgsql { get; init; }
+    
+    /// <summary>
+    ///     Конфигурация DataSource
+    /// </summary>
+    public Action<NpgsqlDataSourceBuilder>? DataSource { get; init; }
 
     /// <summary>
     ///     Пул контектов

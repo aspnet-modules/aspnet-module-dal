@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
+using Npgsql;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 namespace AspNet.Module.Dal.EfCore.Database;
@@ -14,10 +15,14 @@ public static class NpgsqlDbContextConfigurer
     ///     Настройки
     /// </summary>
     public static void Configure(DbContextOptionsBuilder builder, string connectionString,
-        Action<NpgsqlDbContextOptionsBuilder>? configure = null)
+        Action<NpgsqlDataSourceBuilder>? configureDataSource = null,
+        Action<NpgsqlDbContextOptionsBuilder>? configureNpgsql = null)
     {
         ConfigureEf(builder);
-        builder.UseNpgsql(connectionString, b => ConfigureNpgsql(b, configure));
+
+        var dataSource = new NpgsqlDataSourceBuilder(connectionString);
+        configureDataSource?.Invoke(dataSource);
+        builder.UseNpgsql(dataSource.Build(), b => ConfigureNpgsql(b, configureNpgsql));
     }
 
     /// <summary>

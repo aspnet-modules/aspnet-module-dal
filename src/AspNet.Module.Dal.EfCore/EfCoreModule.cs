@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 namespace AspNet.Module.Dal.EfCore;
@@ -45,7 +46,7 @@ public class EfCoreModule<TDbContext> : IAspNetModule
                 (sp, o) =>
                 {
                     ConfigureLogging(o, ctx.Configuration);
-                    ConfigureNpgsqlContext(o, ctx.Configuration, _config.Configure);
+                    ConfigureNpgsqlContext(o, ctx.Configuration, _config.DataSource, _config.Npgsql);
                     ConfigureInterceptors(sp, o);
                 },
                 _config.Pooling.Size);
@@ -58,7 +59,7 @@ public class EfCoreModule<TDbContext> : IAspNetModule
                     (sp, o) =>
                     {
                         ConfigureLogging(o, ctx.Configuration);
-                        ConfigureNpgsqlContext(o, ctx.Configuration, _config.Configure);
+                        ConfigureNpgsqlContext(o, ctx.Configuration, _config.DataSource, _config.Npgsql);
                         ConfigureInterceptors(sp, o);
                     });
             }
@@ -68,7 +69,7 @@ public class EfCoreModule<TDbContext> : IAspNetModule
                     (sp, o) =>
                     {
                         ConfigureLogging(o, ctx.Configuration);
-                        ConfigureNpgsqlContext(o, ctx.Configuration, _config.Configure);
+                        ConfigureNpgsqlContext(o, ctx.Configuration, _config.DataSource, _config.Npgsql);
                         ConfigureInterceptors(sp, o);
                     });
             }
@@ -96,6 +97,8 @@ public class EfCoreModule<TDbContext> : IAspNetModule
     }
 
     private static void ConfigureNpgsqlContext(DbContextOptionsBuilder o, IConfiguration configuration,
+        Action<NpgsqlDataSourceBuilder>? configureDataSource = null,
         Action<NpgsqlDbContextOptionsBuilder>? configure = null) =>
-        NpgsqlDbContextConfigurer.Configure(o, DbConnectionStr.FromConfiguration(configuration), configure);
+        NpgsqlDbContextConfigurer.Configure(o, DbConnectionStr.FromConfiguration(configuration), configureDataSource,
+            configure);
 }
