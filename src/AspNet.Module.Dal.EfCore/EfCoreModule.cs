@@ -40,13 +40,18 @@ public class EfCoreModule<TDbContext> : IAspNetModule
             DatabaseClock.CustomClock(_config.Clock);
         }
 
+        var connStr = DbConnectionStr.FromConfiguration(ctx.Configuration);
+        var dataSourceBuilder = new NpgsqlDataSourceBuilder(connStr);
+        _config.DataSource?.Invoke(dataSourceBuilder);
+        var dataSource = dataSourceBuilder.Build();
+
         if (_config.Pooling != null)
         {
             ctx.Services.AddDbContextPool<DbContext, TDbContext>(
                 (sp, o) =>
                 {
                     ConfigureLogging(o, ctx.Configuration);
-                    ConfigureNpgsqlContext(o, ctx.Configuration, _config.DataSource, _config.Npgsql);
+                    ConfigureNpgsqlContext(o, dataSource, _config.Npgsql);
                     ConfigureInterceptors(sp, o);
                 },
                 _config.Pooling.Size);
@@ -59,7 +64,7 @@ public class EfCoreModule<TDbContext> : IAspNetModule
                     (sp, o) =>
                     {
                         ConfigureLogging(o, ctx.Configuration);
-                        ConfigureNpgsqlContext(o, ctx.Configuration, _config.DataSource, _config.Npgsql);
+                        ConfigureNpgsqlContext(o, dataSource, _config.Npgsql);
                         ConfigureInterceptors(sp, o);
                     });
             }
@@ -69,7 +74,7 @@ public class EfCoreModule<TDbContext> : IAspNetModule
                     (sp, o) =>
                     {
                         ConfigureLogging(o, ctx.Configuration);
-                        ConfigureNpgsqlContext(o, ctx.Configuration, _config.DataSource, _config.Npgsql);
+                        ConfigureNpgsqlContext(o, dataSource, _config.Npgsql);
                         ConfigureInterceptors(sp, o);
                     });
             }
@@ -96,9 +101,7 @@ public class EfCoreModule<TDbContext> : IAspNetModule
         o.EnableDetailedErrors();
     }
 
-    private static void ConfigureNpgsqlContext(DbContextOptionsBuilder o, IConfiguration configuration,
-        Action<NpgsqlDataSourceBuilder>? configureDataSource = null,
+    private static void ConfigureNpgsqlContext(DbContextOptionsBuilder o, NpgsqlDataSource dataSource, 
         Action<NpgsqlDbContextOptionsBuilder>? configure = null) =>
-        NpgsqlDbContextConfigurer.Configure(o, DbConnectionStr.FromConfiguration(configuration), configureDataSource,
-            configure);
+        NpgsqlDbContextConfigurer.Configure(o, dataSource, configure);
 }

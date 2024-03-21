@@ -17,14 +17,14 @@ public class EfCoreConfig
     public Func<DateTime>? Clock { get; init; }
 
     /// <summary>
-    ///     Конфигурация
-    /// </summary>
-    public Action<NpgsqlDbContextOptionsBuilder>? Npgsql { get; init; }
-    
-    /// <summary>
     ///     Конфигурация DataSource
     /// </summary>
     public Action<NpgsqlDataSourceBuilder>? DataSource { get; init; }
+
+    /// <summary>
+    ///     Конфигурация
+    /// </summary>
+    public Action<NpgsqlDbContextOptionsBuilder>? Npgsql { get; init; }
 
     /// <summary>
     ///     Пул контектов

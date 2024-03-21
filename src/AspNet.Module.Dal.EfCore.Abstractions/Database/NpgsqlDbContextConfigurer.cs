@@ -14,15 +14,11 @@ public static class NpgsqlDbContextConfigurer
     /// <summary>
     ///     Настройки
     /// </summary>
-    public static void Configure(DbContextOptionsBuilder builder, string connectionString,
-        Action<NpgsqlDataSourceBuilder>? configureDataSource = null,
+    public static void Configure(DbContextOptionsBuilder builder, NpgsqlDataSource dataSource,
         Action<NpgsqlDbContextOptionsBuilder>? configureNpgsql = null)
     {
         ConfigureEf(builder);
-
-        var dataSource = new NpgsqlDataSourceBuilder(connectionString);
-        configureDataSource?.Invoke(dataSource);
-        builder.UseNpgsql(dataSource.Build(), b => ConfigureNpgsql(b, configureNpgsql));
+        builder.UseNpgsql(dataSource, b => ConfigureNpgsql(b, configureNpgsql));
     }
 
     /// <summary>

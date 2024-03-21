@@ -12,14 +12,14 @@
         <IsPackable>true</IsPackable>
         <IncludeSymbols>true</IncludeSymbols>
         <PackageId>AspNet.Module.Dal.EfCore</PackageId>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
         <Authors>kvandake</Authors>
         <Company>kvandake</Company>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="AspNet.Module.Common" Version="1.0.0"/>
-        <PackageReference Include="AspNet.Module.Dal.EfCore.Abstractions" Version="1.0.0"/>
+        <PackageReference Include="AspNet.Module.Dal.EfCore.Abstractions" Version="1.0.2"/>
     </ItemGroup>
 
     <ItemGroup>
