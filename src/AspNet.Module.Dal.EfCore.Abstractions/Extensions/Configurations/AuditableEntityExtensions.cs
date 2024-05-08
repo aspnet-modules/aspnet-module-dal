@@ -11,24 +11,26 @@ namespace AspNet.Module.Dal.EfCore.Extensions.Configurations;
 /// </summary>
 public static class AuditableEntityExtensions
 {
+    private const string CreationDefaultValue = "now()";
+    
     /// <summary>
     ///     Добавить CreatedAt, UpdatedAt к объекту
     /// </summary>
-    public static EntityTypeBuilder<T> MapAuditable<T>(this EntityTypeBuilder<T> builder)
-        where T : class, ICreationTrackable, IModificationTrackable
+    public static EntityTypeBuilder<T> MapAuditable<T>(this EntityTypeBuilder<T> builder, 
+        string creationDefaultValue = CreationDefaultValue) where T : class, ICreationTrackable, IModificationTrackable
     {
-        builder.Property(x => x.UpdatedAt).HasComment("Обновлен");
-        builder.Property(x => x.CreatedAt).HasComment("Создан");
+        builder.MapModificationTrackable();
+        builder.MapCreationTrackable(creationDefaultValue);
         return builder;
     }
 
     /// <summary>
     ///     Добавить CreatedAt объекту
     /// </summary>
-    public static EntityTypeBuilder<T> MapCreationTrackable<T>(this EntityTypeBuilder<T> builder)
-        where T : class, ICreationTrackable
+    public static EntityTypeBuilder<T> MapCreationTrackable<T>(this EntityTypeBuilder<T> builder, 
+        string defaultValue = CreationDefaultValue) where T : class, ICreationTrackable
     {
-        builder.Property(x => x.CreatedAt).HasComment("Создан");
+        builder.Property(x => x.CreatedAt).HasDefaultValueSql(defaultValue).HasComment("Создан");
         return builder;
     }
 
@@ -38,7 +40,7 @@ public static class AuditableEntityExtensions
     public static EntityTypeBuilder<T> MapModificationTrackable<T>(this EntityTypeBuilder<T> builder)
         where T : class, IModificationTrackable
     {
-        builder.Property(x => x.UpdatedAt).HasComment("Обновлен");
+        builder.Property(x => x.UpdatedAt).IsRequired(false).HasComment("Обновлен");
         return builder;
     }
 
