@@ -51,7 +51,7 @@ public class EfCoreModule<TDbContext> : IAspNetModule
                 (sp, o) =>
                 {
                     ConfigureLogging(o, ctx.Configuration);
-                    ConfigureNpgsqlContext(o, dataSource, _config.Npgsql);
+                    ConfigureNpgsqlContext(o, dataSource, _config.Npgsql, _config.MigrationsHistorySchema);
                     ConfigureInterceptors(sp, o);
                 },
                 _config.Pooling.Size);
@@ -64,7 +64,7 @@ public class EfCoreModule<TDbContext> : IAspNetModule
                     (sp, o) =>
                     {
                         ConfigureLogging(o, ctx.Configuration);
-                        ConfigureNpgsqlContext(o, dataSource, _config.Npgsql);
+                        ConfigureNpgsqlContext(o, dataSource, _config.Npgsql, _config.MigrationsHistorySchema);
                         ConfigureInterceptors(sp, o);
                     });
             }
@@ -74,7 +74,7 @@ public class EfCoreModule<TDbContext> : IAspNetModule
                     (sp, o) =>
                     {
                         ConfigureLogging(o, ctx.Configuration);
-                        ConfigureNpgsqlContext(o, dataSource, _config.Npgsql);
+                        ConfigureNpgsqlContext(o, dataSource, _config.Npgsql, _config.MigrationsHistorySchema);
                         ConfigureInterceptors(sp, o);
                     });
             }
@@ -102,6 +102,6 @@ public class EfCoreModule<TDbContext> : IAspNetModule
     }
 
     private static void ConfigureNpgsqlContext(DbContextOptionsBuilder o, NpgsqlDataSource dataSource, 
-        Action<NpgsqlDbContextOptionsBuilder>? configure = null) =>
-        NpgsqlDbContextConfigurer.Configure(o, dataSource, configure);
+        Action<NpgsqlDbContextOptionsBuilder>? configure, string? migrationsHistorySchema) =>
+        NpgsqlDbContextConfigurer.Configure(o, dataSource, configure, migrationsHistorySchema);
 }

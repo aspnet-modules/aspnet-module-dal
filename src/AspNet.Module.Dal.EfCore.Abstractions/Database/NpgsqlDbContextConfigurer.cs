@@ -15,19 +15,20 @@ public static class NpgsqlDbContextConfigurer
     ///     Настройки
     /// </summary>
     public static void Configure(DbContextOptionsBuilder builder, NpgsqlDataSource dataSource,
-        Action<NpgsqlDbContextOptionsBuilder>? configureNpgsql = null)
+        Action<NpgsqlDbContextOptionsBuilder>? configureNpgsql = null, string? migrationsHistorySchema = null)
     {
         ConfigureEf(builder);
-        builder.UseNpgsql(dataSource, b => ConfigureNpgsql(b, configureNpgsql));
+        builder.UseNpgsql(dataSource, b => ConfigureNpgsql(b, configureNpgsql,
+            migrationsHistorySchema));
     }
 
     /// <summary>
     ///     Настройки
     /// </summary>
     public static void ConfigureNpgsql(NpgsqlDbContextOptionsBuilder builder,
-        Action<NpgsqlDbContextOptionsBuilder>? configure = null)
+        Action<NpgsqlDbContextOptionsBuilder>? configure = null, string? migrationsHistorySchema = null)
     {
-        builder.MigrationsHistoryTable("__ef_migrations_history");
+        builder.MigrationsHistoryTable("__ef_migrations_history", migrationsHistorySchema);
         builder.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery);
         configure?.Invoke(builder);
     }

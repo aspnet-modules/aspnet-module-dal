@@ -35,6 +35,11 @@ public class EfCoreConfig
     ///     Фабрика DbContext
     /// </summary>
     public bool? RegisterAsFactory { get; init; }
+    
+    /// <summary>
+    ///     Схема для истории миграций
+    /// </summary>
+    public string? MigrationsHistorySchema { get; init; }
 
     /// <summary>
     ///     Настройка пула
