@@ -1,6 +1,4 @@
 using System.Linq.Expressions;
-using AspNet.Module.Dal.EfCore.JsonContext;
-using AspNet.Module.Domain.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Query;
@@ -34,12 +32,6 @@ public static class DbContextExtensions
         var lambdaExpression = Expression.Lambda(expressionFilter, parameterType);
         entityTypeBuilder.HasQueryFilter(lambdaExpression);
     }
-
-    /// <summary>
-    ///     Создание контекста для модификации Json свойства
-    /// </summary>
-    public static IEntityJsonPropertyContext CreateJsonPropertyContext(this DbContext dbContext) =>
-        new EntityJsonPropertyContext(dbContext);
 
     public static async Task EnsureTransaction(this DbContext dbContext, Func<Task> action)
     {
