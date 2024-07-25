@@ -15,7 +15,7 @@ namespace AspNet.Module.Dal.EfCore;
 /// </summary>
 /// <typeparam name="TDbContext">Тип БД контекста</typeparam>
 public class EfCoreModule<TDbContext> : IAspNetModule
-    where TDbContext : BaseDbContext
+    where TDbContext : DbContext
 {
     private readonly EfCoreConfig _config;
 
