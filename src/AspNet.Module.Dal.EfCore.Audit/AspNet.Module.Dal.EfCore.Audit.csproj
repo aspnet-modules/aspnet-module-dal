@@ -18,7 +18,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AspNet.Module.Dal.EfCore.Abstractions" Version="1.0.8" />
+        <PackageReference Include="AspNet.Module.Dal.EfCore.Abstractions" Version="1.0.9" />
     </ItemGroup>
 
     <ItemGroup>
