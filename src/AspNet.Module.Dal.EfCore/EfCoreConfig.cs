@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
@@ -15,6 +16,11 @@ public class EfCoreConfig
     ///     Время в БД
     /// </summary>
     public Func<DateTime>? Clock { get; init; }
+    
+    /// <summary>
+    ///     Конфигурация DbContextOptionsBuilder
+    /// </summary>
+    public Action<DbContextOptionsBuilder>? Options { get; init; }
 
     /// <summary>
     ///     Конфигурация DataSource

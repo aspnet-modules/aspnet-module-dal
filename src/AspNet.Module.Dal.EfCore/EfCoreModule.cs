@@ -53,6 +53,7 @@ public class EfCoreModule<TDbContext> : IAspNetModule
                     ConfigureLogging(o, ctx.Configuration);
                     ConfigureNpgsqlContext(o, dataSource, _config.Npgsql, _config.MigrationsHistorySchema);
                     ConfigureInterceptors(sp, o);
+                    _config.Options?.Invoke(o);
                 },
                 _config.Pooling.Size);
         }
@@ -66,6 +67,7 @@ public class EfCoreModule<TDbContext> : IAspNetModule
                         ConfigureLogging(o, ctx.Configuration);
                         ConfigureNpgsqlContext(o, dataSource, _config.Npgsql, _config.MigrationsHistorySchema);
                         ConfigureInterceptors(sp, o);
+                        _config.Options?.Invoke(o);
                     });
             }
             else
