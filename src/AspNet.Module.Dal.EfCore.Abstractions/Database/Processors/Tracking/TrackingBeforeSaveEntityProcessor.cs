@@ -8,7 +8,7 @@ namespace AspNet.Module.Dal.EfCore.Database.Processors.Tracking;
 /// <summary>
 ///     Сохранение полей CreatedAt, UpdatedAt, DeletedAt
 /// </summary>
-internal static class TrackingBeforeSaveEntityProcessor
+public static class TrackingBeforeSaveEntityProcessor
 {
     /// <summary>
     ///     Процесс

@@ -7,7 +7,7 @@ namespace AspNet.Module.Dal.EfCore.Database.Processors.Transient;
 /// <summary>
 ///     Установка триггера <see cref="ITransientEntity.Transient" />
 /// </summary>
-internal static class TransientBeforeSaveEntityProcessor
+public static class TransientBeforeSaveEntityProcessor
 {
     /// <summary>
     ///     Процесс
