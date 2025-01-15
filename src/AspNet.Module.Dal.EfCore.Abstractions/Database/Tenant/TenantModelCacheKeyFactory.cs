@@ -8,9 +8,6 @@ namespace AspNet.Module.Dal.EfCore.Database.Tenant;
 /// </summary>
 internal class TenantModelCacheKeyFactory : IModelCacheKeyFactory
 {
-    /// <inheritdoc />
-    public object Create(DbContext context) => Create(context, false);
-
     public object Create(DbContext context, bool designTime) =>
         context is BaseTenantDbContext sharedDbContext && !string.IsNullOrWhiteSpace(sharedDbContext.Tenant)
             ? (context.GetType(), sharedDbContext.Tenant, designTime)

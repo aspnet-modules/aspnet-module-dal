@@ -7,12 +7,8 @@ namespace AspNet.Module.Dal.EfCore;
 /// <summary>
 ///     Базовый контекст Tenant БД
 /// </summary>
-public abstract class BaseTenantDbContext : BaseDbContext
+public abstract class BaseTenantDbContext(DbContextOptions options) : BaseDbContext(options)
 {
-    protected BaseTenantDbContext(DbContextOptions options) : base(options)
-    {
-    }
-
     /// <summary>
     ///     Тенант
     /// </summary>

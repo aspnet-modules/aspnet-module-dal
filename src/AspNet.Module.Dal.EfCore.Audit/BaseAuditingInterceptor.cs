@@ -9,21 +9,17 @@ using Microsoft.Extensions.Logging;
 
 namespace AspNet.Module.Dal.EfCore.Audit;
 
-public abstract class BaseAuditingInterceptor : ISaveChangesInterceptor
+public abstract class BaseAuditingInterceptor(
+    ILogger<BaseAuditingInterceptor> logger,
+    IHttpContextAccessor httpContextAccessor)
+    : ISaveChangesInterceptor
 {
     private SaveChangesAudit? _audit;
 
-    public BaseAuditingInterceptor(ILogger<BaseAuditingInterceptor> logger,
-        IHttpContextAccessor httpContextAccessor)
-    {
-        Logger = logger;
-        HttpContextAccessor = httpContextAccessor;
-    }
-
     private bool CanAudit => HttpContextAccessor.HttpContext?.User.Identity?.IsAuthenticated == true;
 
-    private IHttpContextAccessor HttpContextAccessor { get; }
-    private ILogger<BaseAuditingInterceptor> Logger { get; }
+    private IHttpContextAccessor HttpContextAccessor { get; } = httpContextAccessor;
+    private ILogger<BaseAuditingInterceptor> Logger { get; } = logger;
 
     public void SaveChangesFailed(DbContextErrorEventData eventData)
     {
