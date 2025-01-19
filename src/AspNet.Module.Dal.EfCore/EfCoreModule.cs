@@ -45,23 +45,11 @@ public class EfCoreModule<TDbContext> : IAspNetModule
         _config.DataSource?.Invoke(dataSourceBuilder);
         var dataSource = dataSourceBuilder.Build();
 
-        if (_config.Pooling != null)
+        if (_config is FactoryEfCoreConfig factoryEfCoreConfig)
         {
-            ctx.Services.AddDbContextPool<DbContext, TDbContext>(
-                (sp, o) =>
-                {
-                    ConfigureLogging(o, ctx.Configuration);
-                    ConfigureNpgsqlContext(o, dataSource, _config.Npgsql, _config.MigrationsHistorySchema);
-                    ConfigureInterceptors(sp, o);
-                    _config.Options?.Invoke(o);
-                },
-                _config.Pooling.Size);
-        }
-        else
-        {
-            if (_config.RegisterAsFactory == true)
+            if (factoryEfCoreConfig.Pooling != null)
             {
-                ctx.Services.AddDbContextFactory<TDbContext>(
+                ctx.Services.AddPooledDbContextFactory<TDbContext>(
                     (sp, o) =>
                     {
                         ConfigureLogging(o, ctx.Configuration);
@@ -72,6 +60,32 @@ public class EfCoreModule<TDbContext> : IAspNetModule
             }
             else
             {
+                ctx.Services.AddDbContextFactory<TDbContext>(
+                    (sp, o) =>
+                    {
+                        ConfigureLogging(o, ctx.Configuration);
+                        ConfigureNpgsqlContext(o, dataSource, _config.Npgsql, _config.MigrationsHistorySchema);
+                        ConfigureInterceptors(sp, o);
+                        _config.Options?.Invoke(o);
+                    }, _config.ServiceLifetime);
+            }
+        }
+        else
+        {
+            if (_config.Pooling != null)
+            {
+                ctx.Services.AddDbContextPool<DbContext, TDbContext>(
+                    (sp, o) =>
+                    {
+                        ConfigureLogging(o, ctx.Configuration);
+                        ConfigureNpgsqlContext(o, dataSource, _config.Npgsql, _config.MigrationsHistorySchema);
+                        ConfigureInterceptors(sp, o);
+                        _config.Options?.Invoke(o);
+                    },
+                    _config.Pooling.Size);
+            }
+            else
+            {
                 ctx.Services.AddDbContext<DbContext, TDbContext>(
                     (sp, o) =>
                     {
@@ -79,7 +93,7 @@ public class EfCoreModule<TDbContext> : IAspNetModule
                         ConfigureNpgsqlContext(o, dataSource, _config.Npgsql, _config.MigrationsHistorySchema);
                         ConfigureInterceptors(sp, o);
                         _config.Options?.Invoke(o);
-                    });
+                    }, _config.ServiceLifetime);
             }
         }
     }
@@ -104,7 +118,7 @@ public class EfCoreModule<TDbContext> : IAspNetModule
         o.EnableDetailedErrors();
     }
 
-    private static void ConfigureNpgsqlContext(DbContextOptionsBuilder o, NpgsqlDataSource dataSource, 
+    private static void ConfigureNpgsqlContext(DbContextOptionsBuilder o, NpgsqlDataSource dataSource,
         Action<NpgsqlDbContextOptionsBuilder>? configure, string? migrationsHistorySchema) =>
         NpgsqlDbContextConfigurer.Configure(o, dataSource, configure, migrationsHistorySchema);
 }

@@ -12,11 +12,11 @@ namespace AspNet.Module.Dal.EfCore.Extensions.Configurations;
 public static class AuditableEntityExtensions
 {
     private const string CreationDefaultValue = "now()";
-    
+
     /// <summary>
     ///     Добавить CreatedAt, UpdatedAt к объекту
     /// </summary>
-    public static EntityTypeBuilder<T> MapAuditable<T>(this EntityTypeBuilder<T> builder, 
+    public static EntityTypeBuilder<T> MapAuditable<T>(this EntityTypeBuilder<T> builder,
         string creationDefaultValue = CreationDefaultValue) where T : class, ICreationTrackable, IModificationTrackable
     {
         builder.MapModificationTrackable();
@@ -27,7 +27,7 @@ public static class AuditableEntityExtensions
     /// <summary>
     ///     Добавить CreatedAt объекту
     /// </summary>
-    public static EntityTypeBuilder<T> MapCreationTrackable<T>(this EntityTypeBuilder<T> builder, 
+    public static EntityTypeBuilder<T> MapCreationTrackable<T>(this EntityTypeBuilder<T> builder,
         string defaultValue = CreationDefaultValue) where T : class, ICreationTrackable
     {
         builder.Property(x => x.CreatedAt).HasDefaultValueSql(defaultValue).HasComment("Создан");
