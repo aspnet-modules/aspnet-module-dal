@@ -1,16 +1,18 @@
-# Модуль доступа к данным DAL (Data Access Layer)
+# AspNet.Module.Dal
 
-Модуль организует доступ к БД на уровне репозитория.
+Data access layer packages built on top of Entity Framework Core.
+
+## Installation
 
 ```sh
-# для доступа к IRepository
-dotnet add AspNet.Module.Dal.EfCore.Abstractions
+# abstractions for repositories and base EF Core contracts
+dotnet add package AspNet.Module.Dal.EfCore.Abstractions
 
-# для регистрации модуля в Host
-dotnet add AspNet.Module.Dal.EfCore
+# runtime module registration in the host
+dotnet add package AspNet.Module.Dal.EfCore
 ```
 
-## Инициализация DbContext
+## DbContext Initialization
 
 ```cs
 using AspNet.Module.Dal.EfCore;
@@ -20,9 +22,7 @@ public class AppDbContext : BaseDbContext
 }
 ```
 
-## Регистрация модуля в Program
-
-Добавляем в Host проект nuget пакет `AspNet.Module.Dal.EfCore`.
+## Module Registration
 
 ```cs
 using AspNet.Module.Dal.EfCore;
@@ -31,15 +31,11 @@ var builder = AspNetWebApplication.CreateBuilder(args);
 builder.RegisterModule(new EfCoreModule<AppDbContext>(() => Clock.Now));
 ```
 
-> В конструкторе модуля EfCoreModule можно указать функцию получения текущего времени. Если не указан, то берем
-> DateTime.UtcNow.
+You can optionally pass a function that returns the current time to `EfCoreModule`. If not specified, `DateTime.UtcNow` is used.
 
-## Дополнительная конфигурация
+## Additional Configuration
 
-В переменных окружения можно указать след параметры
-
-* DbContext
-    * DetailedErrors - показывать детали ошибок с параметрами
+You can configure database options through environment variables or configuration files.
 
 ```json
 {
@@ -48,3 +44,9 @@ builder.RegisterModule(new EfCoreModule<AppDbContext>(() => Clock.Now));
   }
 }
 ```
+
+`DetailedErrors` enables EF Core detailed error messages including parameter values.
+
+## Source Code
+
+- Repository: [github.com/aspnet-modules/aspnet-module-dal](https://github.com/aspnet-modules/aspnet-module-dal)
