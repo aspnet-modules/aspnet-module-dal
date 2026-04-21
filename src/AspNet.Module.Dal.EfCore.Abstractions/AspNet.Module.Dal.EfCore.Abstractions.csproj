@@ -13,7 +13,7 @@
         <IsPackable>true</IsPackable>
         <IncludeSymbols>true</IncludeSymbols>
         <PackageId>AspNet.Module.Dal.EfCore.Abstractions</PackageId>
-        <Version>3.0.1</Version>
+        <Version>3.0.2</Version>
         <Authors>kvandake</Authors>
         <Company>kvandake</Company>
         <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -26,10 +26,9 @@
     <ItemGroup>
         <PackageReference Include="AspNet.Module.Common" Version="3.0.2"/>
         <PackageReference Include="AspNet.Module.Domain.Abstractions" Version="3.0.1"/>
-        <PackageReference Include="EFCore.NamingConventions" Version="10.0.0-rc.2" />
-
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0"/>
+        <PackageReference Include="EFCore.NamingConventions" Version="10.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.6" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1"/>
     </ItemGroup>
 
     <ItemGroup>
